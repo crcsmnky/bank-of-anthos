@@ -99,8 +99,8 @@ def home():
 
     try:
         url = '{}'.format(APP.config['CRM_URI'])
-        response = requests.get(url=urls, headers=hed, timeout=APP.config['BACKEND_TIMEOUT'])
-    except requests.exception.RequestException as err
+        response = requests.get(url=url, headers=hed, timeout=APP.config['BACKEND_TIMEOUT'])
+    except:
         pass
 
     return render_template('index.html',
