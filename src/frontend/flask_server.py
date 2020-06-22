@@ -97,6 +97,12 @@ def home():
 
     _populate_contact_labels(account_id, transaction_list, contacts)
 
+    try:
+        url = '{}'.format(APP.config['CRM_URI'])
+        response = requests.get(url=urls, headers=hed, timeout=APP.config['BACKEND_TIMEOUT'])
+    except requests.exception.RequestException as err
+        pass
+
     return render_template('index.html',
                            history=transaction_list,
                            balance=balance,
@@ -415,6 +421,8 @@ APP.config["LOGIN_URI"] = 'http://{}/login'.format(
     os.environ.get('USERSERVICE_API_ADDR'))
 APP.config["CONTACTS_URI"] = 'http://{}/contacts'.format(
     os.environ.get('CONTACTS_API_ADDR'))
+APP.config["CRM_URI"] = 'http://{}/hipster-crm/index.action'.format(
+    os.environ.get('CRM_ADDR'))
 APP.config['PUBLIC_KEY'] = open(os.environ.get('PUB_KEY_PATH'), 'r').read()
 APP.config['LOCAL_ROUTING'] = os.getenv('LOCAL_ROUTING_NUM')
 APP.config['BACKEND_TIMEOUT'] = 3  # timeout in seconds for calls to the backend
